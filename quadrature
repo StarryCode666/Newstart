@@ -1,0 +1,72 @@
+package com.cn;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class Triangle{
+	private double[] x=new double[3];
+	private double s=0;
+	Triangle(double a,double b,double c){
+		double l=(a+b+c)/2;
+		s=Math.sqrt(Math.abs(l*(l-a)*(l-b)*(l-c)));
+	}
+	Triangle(double a,double b){
+		s=a*b/2;
+	}
+	public void show(){
+		System.out.println("这个三角形的面积是："+s);
+	}
+}
+public class Area {
+
+	public static void main(String[] args) {
+		int q=0;
+		double a=0,b=0,c=0;
+		Scanner in=new Scanner(System.in);
+		System.out.println("1.已知三角形高和底边 \t2.已知三角形三边\n请选择");
+		q=in.nextInt();
+		boolean p=false;
+		do{
+			System.out.println("请输入：");
+		if(q==1){
+			try{
+			a=in.nextDouble();
+			b=in.nextDouble();
+			if(a<0||b<0){
+				throw new InputMismatchException("三角形的边不能为负数");
+			}
+			Triangle d1=new Triangle(a, b);
+			d1.show();
+			}catch(InputMismatchException e){
+				System.out.println(e.getMessage());
+				p=true;
+				String x=in.nextLine();
+			}
+			
+		}
+		else if(q==2){
+			try{
+		a=in.nextDouble();
+		b=in.nextDouble();
+		c=in.nextDouble();
+		if(a<0||b<0||c<0){
+			throw new InputMismatchException("三角形的边不能为负数");
+		}
+		if(!(a+b>c&&a+c>b&&b+c>a))
+			{throw new ArithmeticException("输入错误三边");}
+		Triangle d1=new Triangle(a,b,c);
+		d1.show();
+		}
+			catch (ArithmeticException e) {
+				System.out.println(e.getMessage());
+				p=true;
+				String x=in.nextLine();
+			}catch(InputMismatchException e){
+				System.out.println(e.getMessage());
+				p=true;
+				String x=in.nextLine();
+			}
+		}	
+	}while(p);
+	}
+}
